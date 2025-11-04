@@ -1,5 +1,6 @@
 package com.example.unimatchfrontend.features.students.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -13,11 +14,12 @@ import androidx.compose.ui.unit.sp
 import com.example.unimatchfrontend.features.projects.domain.model.Project
 
 @Composable
-fun OpportunityCard(project: Project, companyName: String) {
+fun OpportunityCard(project: Project, companyName: String, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .clickable { onClick() },
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {

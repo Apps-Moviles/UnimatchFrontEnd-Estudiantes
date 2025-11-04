@@ -8,4 +8,8 @@ object Routes {
     const val PORTFOLIO = "portfolio"
     const val POSTULATIONS = "postulations"
     const val PROFILE = "profile"
+
+    const val PROJECT_DETAIL = "project_detail"
+    const val COMPANY_DETAIL = "company_detail"
+
 }

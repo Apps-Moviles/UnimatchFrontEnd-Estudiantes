@@ -63,7 +63,13 @@ fun OpportunitiesScreen(
             ) {
                 projects.forEach { project ->
                     val companyName = companyNames[project.companyId] ?: "Empresa"
-                    OpportunityCard(project = project, companyName = companyName)
+                    OpportunityCard(
+                        project = project,
+                        companyName = companyName,
+                        onClick = {
+                            navController.navigate("project_detail/${project.id}")
+                        }
+                    )
                 }
             }
         }

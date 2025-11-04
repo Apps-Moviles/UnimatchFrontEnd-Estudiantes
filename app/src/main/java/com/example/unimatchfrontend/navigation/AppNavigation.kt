@@ -10,6 +10,7 @@ import com.example.unimatchfrontend.features.students.ui.views.*
 import com.example.unimatchfrontend.features.students.ui.StudentViewModel
 import com.example.unimatchfrontend.features.companies.ui.CompanyViewModel
 import com.example.unimatchfrontend.features.projects.ui.ProjectViewModel
+import com.example.unimatchfrontend.features.projects.ui.views.ProjectDetailScreen
 
 @Composable
 fun AppNavigation(
@@ -80,5 +81,16 @@ fun AppNavigation(
         composable(Routes.PROFILE) {
             StudentProfileScreen(navController = navController)
         }
+
+        composable("${Routes.PROJECT_DETAIL}/{projectId}") { backStackEntry ->
+            val projectId = backStackEntry.arguments?.getString("projectId")?.toIntOrNull() ?: return@composable
+            ProjectDetailScreen(
+                navController = navController,
+                projectId = projectId,
+                projectViewModel = projectViewModel,
+                companyViewModel = companyViewModel
+            )
+        }
+
     }
 }
