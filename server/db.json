@@ -1,0 +1,118 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Lucía Torres",
+      "email": "lucia@student.com",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 2,
+      "name": "Carlos Ríos",
+      "email": "carlos@student.com",
+      "password": "123456",
+      "role": "student"
+    },
+    {
+      "id": 3,
+      "name": "Empresa BioPafi",
+      "email": "bio@company.com",
+      "password": "123456",
+      "role": "company"
+    },
+    {
+      "id": 4,
+      "name": "Empresa Juntoz",
+      "email": "juntoz@company.com",
+      "password": "123456",
+      "role": "company"
+    }
+  ],
+  "students": [
+    {
+      "id": 1,
+      "userId": 1,
+      "birthdate": "2002-08-15",
+      "city": "Lima",
+      "country": "Perú",
+      "career": "Ingeniería de Software",
+      "phoneNumber": "987654321",
+      "portfolioLink": "",
+      "aboutMe": "",
+      "rating": 4.5,
+      "profilePicture": "",
+      "endedProjects": []
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "birthdate": "2003-01-22",
+      "city": "Cusco",
+      "country": "Perú",
+      "career": "Diseño Gráfico",
+      "phoneNumber": "912345678",
+      "portfolioLink": "",
+      "aboutMe": "",
+      "rating": 4.2,
+      "profilePicture": "",
+      "endedProjects": []
+    }
+  ],
+  "companies": [
+    {
+      "id": 1,
+      "userId": 3,
+      "companyName": "BioPafi",
+      "sector": "Salud",
+      "location": "Lima",
+      "email": "bio@company.com",
+      "phone": "999888777",
+      "rating": 4.8,
+      "profilePicture": "",
+      "description": "Empresa de biotecnología peruana"
+    },
+    {
+      "id": 2,
+      "userId": 4,
+      "companyName": "Juntoz",
+      "sector": "Retail",
+      "location": "Arequipa",
+      "email": "juntoz@company.com",
+      "phone": "988776655",
+      "rating": 4.6,
+      "profilePicture": "",
+      "description": "Tienda virtual peruana"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Front-End Design Hola",
+      "description": "Rediseño completo de la interfaz de nuestra app móvil",
+      "companyId": 1,
+      "studentsSelected": [],
+      "isFinished": false,
+      "postulants": [],
+      "field": "Diseño UI/UX",
+      "budget": 210.0,
+      "createdAt": "2025-11-01",
+      "requirements": ["Figma", "Prototipado", "Adobe XD"],
+      "status": "activo"
+    },
+    {
+      "id": 2,
+      "title": "Data Project Beta",
+      "description": "Análisis de ventas de productos en campañas pasadas",
+      "companyId": 2,
+      "studentsSelected": [],
+      "isFinished": false,
+      "postulants": [],
+      "field": "Data Science",
+      "budget": 120.0,
+      "createdAt": "2025-11-01",
+      "requirements": ["Python", "Pandas", "Gráficos"],
+      "status": "activo"
+    }
+  ]
+}
