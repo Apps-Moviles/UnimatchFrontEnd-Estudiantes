@@ -8,4 +8,6 @@ interface UserRepository {
 
     suspend fun getAllUsers(): List<User>
 
+    suspend fun getUserById(id: Int?): User?
+
 }

@@ -11,4 +11,7 @@ interface StudentPostulationRepository {
     suspend fun getByStudentAndProject(studentId: Int, projectId: Int): StudentPostulation?
 
     suspend fun create(postulation: StudentPostulation): StudentPostulation
+
+    suspend fun getPostulationsByStudentId(studentId: Int): List<StudentPostulation>
+
 }

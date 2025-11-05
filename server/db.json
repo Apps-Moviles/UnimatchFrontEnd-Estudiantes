@@ -1,42 +1,42 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Lucía Torres",
       "email": "lucia@student.com",
       "password": "123456",
       "role": "student"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Carlos Ríos",
       "email": "carlos@student.com",
       "password": "123456",
       "role": "student"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Empresa BioPafi",
       "email": "bio@company.com",
       "password": "123456",
       "role": "company"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Empresa Juntoz",
       "email": "juntoz@company.com",
       "password": "123456",
       "role": "company"
     },
     {
-      "id": 5,
+      "id": "5",
       "email": "jav@mail.com",
       "name": "Javier",
       "password": "1234",
       "role": "student"
     },
     {
-      "id": 6,
+      "id": "6",
       "email": "gys@mail.com",
       "name": "Felipe Chavez",
       "password": "1234",
@@ -45,7 +45,7 @@
   ],
   "students": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 1,
       "birthdate": "2002-08-15",
       "city": "Lima",
@@ -59,7 +59,7 @@
       "endedProjects": []
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 2,
       "birthdate": "2003-01-22",
       "city": "Cusco",
@@ -73,7 +73,7 @@
       "endedProjects": []
     },
     {
-      "id": 3,
+      "id": "3",
       "aboutMe": "",
       "birthdate": "2006-02-22",
       "career": "Ingenieria de Software",
@@ -89,7 +89,7 @@
   ],
   "companies": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 3,
       "companyName": "BioPafi",
       "sector": "Salud",
@@ -101,7 +101,7 @@
       "description": "Empresa de biotecnología peruana"
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 4,
       "companyName": "Juntoz",
       "sector": "Retail",
@@ -113,7 +113,7 @@
       "description": "Tienda virtual peruana"
     },
     {
-      "id": 3,
+      "id": "3",
       "companyName": "G&S",
       "description": "",
       "email": "gys@mail.com",
@@ -127,7 +127,7 @@
   ],
   "projects": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Front-End Design Hola",
       "description": "Rediseño completo de la interfaz de nuestra app móvil",
       "companyId": 1,
@@ -145,7 +145,7 @@
       "status": "activo"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Data Project Beta",
       "description": "Análisis de ventas de productos en campañas pasadas",
       "companyId": 2,
@@ -165,11 +165,25 @@
   ],
   "studentPostulations": [
     {
-      "id": 1,
+      "id": "1",
       "date": "1762297845199",
       "projectId": 1,
       "status": "Pendiente",
       "studentId": 1
+    },
+    {
+      "id": 2,
+      "date": "1762320795888",
+      "projectId": 2,
+      "status": "Pendiente",
+      "studentId": 3
+    },
+    {
+      "id": 3,
+      "date": "1762325043418",
+      "projectId": 1,
+      "status": "Pendiente",
+      "studentId": 3
     }
   ]
 }

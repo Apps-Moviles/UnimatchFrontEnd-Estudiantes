@@ -20,4 +20,8 @@ class UserRepositoryImpl(
     override suspend fun getAllUsers(): List<User> {
         return api.getAllUsers()
     }
+
+    override suspend fun getUserById(id: Int?): User? {
+        return api.getUserById(id)
+    }
 }

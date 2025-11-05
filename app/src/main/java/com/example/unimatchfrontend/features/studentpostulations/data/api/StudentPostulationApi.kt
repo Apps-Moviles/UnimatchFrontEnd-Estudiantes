@@ -24,5 +24,7 @@ interface StudentPostulationApi {
         @Body postulation: StudentPostulation
     ): StudentPostulation
 
+    
+
 
 }

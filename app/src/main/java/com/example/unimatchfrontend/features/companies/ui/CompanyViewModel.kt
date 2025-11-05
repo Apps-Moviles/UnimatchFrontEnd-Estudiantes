@@ -22,9 +22,16 @@ class CompanyViewModel(
         }
     }
 
-    suspend fun getCompanyById(userId: Int): Company? {
+    suspend fun getCompanyByUserId(userId: Int): Company? {
         return withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
             repository.getCompanyByUserId(userId)
         }
     }
+
+    suspend fun getCompanyByCompanyId(companyId: Int): Company? {
+        return withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
+            repository.getCompanyById(companyId)
+        }
+    }
+
 }

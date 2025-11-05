@@ -24,6 +24,11 @@ class StudentPostulationRepositoryImpl(
         return api.createPostulation(postulation)
     }
 
+    override suspend fun getPostulationsByStudentId(studentId: Int): List<StudentPostulation> {
+        return api.getPostulationsByStudentId(studentId)
+    }
+
+
 
 
 

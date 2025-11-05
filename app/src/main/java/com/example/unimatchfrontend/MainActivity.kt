@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
             repository = projectRepo
         )
 
-        val studentPostulationViewModel = StudentPostulationViewModel(studentPostulationRepo) // ✅ nuevo
+        val studentPostulationViewModel = StudentPostulationViewModel(studentPostulationRepo, projectRepo, companyRepo) // ✅ nuevo
 
         // UI Content
         setContent {

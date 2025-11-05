@@ -13,4 +13,8 @@ interface UserApi {
 
     @GET("users")
     suspend fun getAllUsers(): List<User>
+
+    @GET("users/{id}")
+    suspend fun getUserById(@Path("id") id: Int?): User
+
 }

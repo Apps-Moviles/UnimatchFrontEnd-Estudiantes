@@ -184,6 +184,10 @@ class UserViewModel(
     }
 
 
+    suspend fun getUserById(id: Int?): User? {
+        return userRepository.getUserById(id)
+    }
+
 
 
 

@@ -21,6 +21,15 @@ class ProjectRepositoryImpl(
         return api.updatePostulants(projectId, body)
     }
 
+    override suspend fun getProjectById(id: Int): Project? {
+        return try {
+            api.getProjectById(id)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
 
 
 }

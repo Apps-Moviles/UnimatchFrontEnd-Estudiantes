@@ -9,6 +9,7 @@ import com.example.unimatchfrontend.features.users.ui.*
 import com.example.unimatchfrontend.features.students.ui.views.*
 import com.example.unimatchfrontend.features.students.ui.StudentViewModel
 import com.example.unimatchfrontend.features.companies.ui.CompanyViewModel
+import com.example.unimatchfrontend.features.companies.ui.views.CompanyDetailScreen
 import com.example.unimatchfrontend.features.projects.ui.ProjectViewModel
 import com.example.unimatchfrontend.features.projects.ui.views.ProjectDetailScreen
 
@@ -79,7 +80,7 @@ fun AppNavigation(
         }
 
         composable(Routes.POSTULATIONS) {
-            PostulationsScreen(navController = navController)
+            PostulationsScreen(navController = navController,userViewModel = userViewModel,studentViewModel = studentViewModel, studentPostulationViewModel = studentPostulationViewModel )
         }
 
         composable(Routes.PROFILE) {
@@ -98,5 +99,16 @@ fun AppNavigation(
                 studentPostulationViewModel = studentPostulationViewModel
             )
         }
+
+        composable("${Routes.COMPANY_DETAIL}/{companyId}") { backStackEntry ->
+            val companyId = backStackEntry.arguments?.getString("companyId")?.toIntOrNull() ?: return@composable
+            CompanyDetailScreen(
+                navController = navController,
+                companyId = companyId,
+                companyViewModel = companyViewModel,
+                userViewModel = userViewModel
+            )
+        }
+
     }
 }

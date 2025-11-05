@@ -21,5 +21,9 @@ interface ProjectApi {
         @Body updatedFields: Map<String, Any>
     ): Project
 
+    @GET("projects/{id}")
+    suspend fun getProjectById(@Path("id") id: Int): Project
+
+
 
 }
