@@ -188,6 +188,12 @@ class UserViewModel(
         return userRepository.getUserById(id)
     }
 
+    fun logout() {
+        currentUser = null
+        currentStudent = null
+    }
+
+
 
 
 

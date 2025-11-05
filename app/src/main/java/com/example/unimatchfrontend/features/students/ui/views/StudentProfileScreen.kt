@@ -107,9 +107,14 @@ fun StudentProfileScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
             Button(
-                onClick = { /* TODO: Cerrar sesión */ },
+                onClick = {
+                    userViewModel.logout()
+                    navController.navigate(Routes.LOGIN) {
+                        popUpTo(0)
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF222222)
+                    containerColor = Color(0xFF1C1F2B)
                 ),
                 shape = RoundedCornerShape(10.dp)
             ) {
