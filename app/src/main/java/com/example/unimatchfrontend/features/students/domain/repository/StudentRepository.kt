@@ -7,5 +7,8 @@ interface StudentRepository {
 
     suspend fun getAllStudents(): List<Student>
     suspend fun createStudent(student: Student): Student
+    suspend fun updateStudent(student: Student): Student
+
+
 
 }

@@ -10,4 +10,6 @@ interface UserRepository {
 
     suspend fun getUserById(id: Int?): User?
 
+    suspend fun updateUser(user: User): User
+
 }

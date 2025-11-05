@@ -110,5 +110,13 @@ fun AppNavigation(
             )
         }
 
+        composable(Routes.EDIT_STUDENT_PROFILE) {
+            EditStudentProfileScreen(
+                navController = navController,
+                userViewModel = userViewModel,
+                studentViewModel = studentViewModel
+            )
+        }
+
     }
 }

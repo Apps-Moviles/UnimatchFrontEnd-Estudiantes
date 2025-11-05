@@ -12,4 +12,6 @@ object Routes {
     const val PROJECT_DETAIL = "project_detail"
     const val COMPANY_DETAIL = "company_detail"
 
+    const val EDIT_STUDENT_PROFILE = "edit_student_profile"
+
 }

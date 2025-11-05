@@ -25,7 +25,6 @@ class UserViewModel(
         private set
 
     var currentStudent by mutableStateOf<Student?>(null)
-        private set
 
     var currentCompany by mutableStateOf<Company?>(null)
         private set
@@ -192,6 +191,20 @@ class UserViewModel(
         currentUser = null
         currentStudent = null
     }
+
+    fun updateUser(updatedUser: User) {
+        viewModelScope.launch {
+            try {
+                val updated = userRepository.updateUser(updatedUser)
+                currentUser = updated
+            } catch (e: Exception) {
+                errorMessage = e.message
+            }
+        }
+    }
+
+
+
 
 
 

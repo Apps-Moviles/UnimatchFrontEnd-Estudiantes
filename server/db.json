@@ -29,9 +29,9 @@
       "role": "company"
     },
     {
-      "id": "5",
       "email": "jav@mail.com",
-      "name": "Javier",
+      "id": "5",
+      "name": "Javier Gonzales",
       "password": "1234",
       "role": "student"
     },
@@ -73,13 +73,13 @@
       "endedProjects": []
     },
     {
-      "id": "3",
       "aboutMe": "",
-      "birthdate": "2006-02-22",
+      "birthdate": "2005-02-22",
       "career": "Ingenieria de Software",
       "city": "Lima",
       "country": "Peru",
       "endedProjects": [],
+      "id": "3",
       "phoneNumber": "924426821",
       "portfolioLink": "",
       "profilePicture": "",
@@ -172,14 +172,14 @@
       "studentId": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "date": "1762320795888",
       "projectId": 2,
       "status": "Pendiente",
       "studentId": 3
     },
     {
-      "id": 3,
+      "id": "3",
       "date": "1762325043418",
       "projectId": 1,
       "status": "Pendiente",

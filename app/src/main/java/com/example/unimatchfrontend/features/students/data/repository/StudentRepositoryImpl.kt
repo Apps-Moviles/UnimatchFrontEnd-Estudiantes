@@ -19,4 +19,11 @@ class StudentRepositoryImpl(
     override suspend fun createStudent(student: Student): Student {
         return api.createStudent(student)
     }
+
+    override suspend fun updateStudent(student: Student): Student {
+        return api.updateStudent(student.id ?: throw IllegalArgumentException("ID is null"), student)
+    }
+
+
+
 }

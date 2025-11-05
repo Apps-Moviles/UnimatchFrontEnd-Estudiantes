@@ -34,4 +34,14 @@ class StudentViewModel(
             }
         }
     }
+
+    suspend fun updateStudent(updatedStudent: Student) {
+        val updated = repository.updateStudent(updatedStudent)
+        _student.value = updated
+    }
+
+    suspend fun getStudentByUserId(userId: Int): Student? {
+        return repository.getStudentByUserId(userId)
+    }
+
 }

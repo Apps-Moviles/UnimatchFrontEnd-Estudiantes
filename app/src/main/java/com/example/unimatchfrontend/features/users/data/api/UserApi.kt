@@ -17,4 +17,8 @@ interface UserApi {
     @GET("users/{id}")
     suspend fun getUserById(@Path("id") id: Int?): User
 
+    @PUT("users/{id}")
+    suspend fun updateUser(@Path("id") id: Int, @Body user: User): User
+
+
 }

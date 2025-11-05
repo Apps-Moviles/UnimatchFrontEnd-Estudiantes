@@ -94,7 +94,10 @@ fun StudentProfileScreen(
             Spacer(modifier = Modifier.height(28.dp))
 
             Button(
-                onClick = { /* TODO: Navegar a editar perfil */ },
+                onClick = {
+                    navController.navigate(Routes.EDIT_STUDENT_PROFILE)
+                },
+
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFFFD479),
                     contentColor = Color.Black
