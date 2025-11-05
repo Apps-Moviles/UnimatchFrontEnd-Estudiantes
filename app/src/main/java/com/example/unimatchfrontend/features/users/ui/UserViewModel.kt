@@ -132,6 +132,58 @@ class UserViewModel(
         }
     }
 
+    fun registerCompanyWithUser(
+        user: User,
+        companyName: String,
+        sector: String,
+        location: String,
+        phone: String
+    ) {
+        isLoading = true
+        errorMessage = null
+
+        viewModelScope.launch {
+            try {
+                // Obtener todos los usuarios (students + companies)
+                val allUsers = userRepository.getAllUsers()
+                val allCompanies = companyRepository.getAllCompanies()
+
+                val nextUserId = (allUsers.maxOfOrNull { it.id ?: 0 } ?: 0) + 1
+                val nextCompanyId = (allCompanies.maxOfOrNull { it.id ?: 0 } ?: 0) + 1
+
+                val cleanUser = user.copy(id = nextUserId)
+                val createdUser = registerUseCase(cleanUser)
+
+                if (createdUser != null) {
+                    currentUser = createdUser
+
+                    val newCompany = Company(
+                        id = nextCompanyId,
+                        userId = createdUser.id,
+                        companyName = companyName,
+                        sector = sector,
+                        location = location,
+                        email = createdUser.email,
+                        phone = phone,
+                        rating = 0.0,
+                        profilePicture = "",
+                        description = ""
+                    )
+
+                    val createdCompany = companyRepository.createCompany(newCompany)
+                    currentCompany = createdCompany
+                } else {
+                    errorMessage = "Error al crear usuario"
+                }
+            } catch (e: Exception) {
+                errorMessage = e.message ?: "Error desconocido"
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
+
 
 
 

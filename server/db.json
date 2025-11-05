@@ -34,6 +34,13 @@
       "name": "Javier",
       "password": "1234",
       "role": "student"
+    },
+    {
+      "id": 6,
+      "email": "gys@mail.com",
+      "name": "Felipe Chavez",
+      "password": "1234",
+      "role": "company"
     }
   ],
   "students": [
@@ -104,6 +111,18 @@
       "rating": 4.6,
       "profilePicture": "",
       "description": "Tienda virtual peruana"
+    },
+    {
+      "id": 3,
+      "companyName": "G&S",
+      "description": "",
+      "email": "gys@mail.com",
+      "location": "Lima, Peru",
+      "phone": "999555121",
+      "profilePicture": "",
+      "rating": 0,
+      "sector": "Industria 4.0",
+      "userId": 6
     }
   ],
   "projects": [

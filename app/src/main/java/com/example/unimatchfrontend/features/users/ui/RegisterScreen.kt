@@ -230,8 +230,14 @@ fun RegisterScreen(
                             career = career,
                             phoneNumber = phone
                         )
-                    } else {
-                        viewModel.register(user) // Aquí luego conectarás el flujo para compañías
+                    }  else {
+                        viewModel.registerCompanyWithUser(
+                            user = user,
+                            companyName = companyName,
+                            sector = sector,
+                            location = location,
+                            phone = phone
+                        )
                     }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD479)),
