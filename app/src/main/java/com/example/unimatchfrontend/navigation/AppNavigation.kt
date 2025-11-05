@@ -12,6 +12,9 @@ import com.example.unimatchfrontend.features.companies.ui.CompanyViewModel
 import com.example.unimatchfrontend.features.projects.ui.ProjectViewModel
 import com.example.unimatchfrontend.features.projects.ui.views.ProjectDetailScreen
 
+// ✅ Importa el nuevo ViewModel
+import com.example.unimatchfrontend.features.studentpostulations.ui.StudentPostulationViewModel
+
 @Composable
 fun AppNavigation(
     navController: NavHostController,
@@ -19,6 +22,7 @@ fun AppNavigation(
     studentViewModel: StudentViewModel,
     companyViewModel: CompanyViewModel,
     projectViewModel: ProjectViewModel,
+    studentPostulationViewModel: StudentPostulationViewModel, // ✅ nuevo
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -88,9 +92,11 @@ fun AppNavigation(
                 navController = navController,
                 projectId = projectId,
                 projectViewModel = projectViewModel,
-                companyViewModel = companyViewModel
+                companyViewModel = companyViewModel,
+                studentViewModel = studentViewModel,
+                userViewModel = userViewModel,
+                studentPostulationViewModel = studentPostulationViewModel
             )
         }
-
     }
 }

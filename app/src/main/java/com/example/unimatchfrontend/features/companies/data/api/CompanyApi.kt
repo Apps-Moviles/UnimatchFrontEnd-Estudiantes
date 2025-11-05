@@ -12,5 +12,6 @@ interface CompanyApi {
     suspend fun getAllCompanies(): List<Company>
 
     @GET("companies")
-    suspend fun getCompanyById(@Query("id") companyId: Int): Company
+    suspend fun getCompanyById(@Query("id") companyId: Int): List<Company>
+
 }

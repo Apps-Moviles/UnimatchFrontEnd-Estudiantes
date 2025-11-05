@@ -33,10 +33,8 @@ fun OpportunitiesScreen(
         projects.forEach { project ->
             if (!companyNames.containsKey(project.companyId)) {
                 coroutineScope.launch {
-                    val company = companyViewModel.getCompanyById(project.companyId)
-                    if (company != null) {
-                        companyNames[project.companyId] = company.companyName
-                    }
+                    val name = companyViewModel.getCompanyNameById(project.companyId)
+                    companyNames[project.companyId] = name
                 }
             }
         }

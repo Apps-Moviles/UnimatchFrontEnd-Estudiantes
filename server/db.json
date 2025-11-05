@@ -95,9 +95,13 @@
       "isFinished": false,
       "postulants": [],
       "field": "Diseño UI/UX",
-      "budget": 210.0,
+      "budget": 210,
       "createdAt": "2025-11-01",
-      "requirements": ["Figma", "Prototipado", "Adobe XD"],
+      "requirements": [
+        "Figma",
+        "Prototipado",
+        "Adobe XD"
+      ],
       "status": "activo"
     },
     {
@@ -109,10 +113,30 @@
       "isFinished": false,
       "postulants": [],
       "field": "Data Science",
-      "budget": 120.0,
+      "budget": 120,
       "createdAt": "2025-11-01",
-      "requirements": ["Python", "Pandas", "Gráficos"],
+      "requirements": [
+        "Python",
+        "Pandas",
+        "Gráficos"
+      ],
       "status": "activo"
+    }
+  ],
+  "studentPostulations": [
+    {
+      "id": 1,
+      "date": "1762297845199",
+      "projectId": 1,
+      "status": "Pendiente",
+      "studentId": 1
+    },
+    {
+      "id": 2,
+      "date": "1762299140105",
+      "projectId": 2,
+      "status": "Pendiente",
+      "studentId": 1
     }
   ]
 }

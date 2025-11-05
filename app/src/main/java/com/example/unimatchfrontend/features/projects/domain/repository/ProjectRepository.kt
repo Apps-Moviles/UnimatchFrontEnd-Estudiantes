@@ -6,4 +6,7 @@ interface ProjectRepository {
     suspend fun getAllProjects(): List<Project>
 
     suspend fun createProject(project: Project): Project?
+
+    suspend fun updateProjectPostulants(projectId: Int, postulants: List<Int>): Project?
+
 }

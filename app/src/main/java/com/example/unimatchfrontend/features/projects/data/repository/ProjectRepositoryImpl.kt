@@ -16,5 +16,11 @@ class ProjectRepositoryImpl(
         return api.createProject(project)
     }
 
+    override suspend fun updateProjectPostulants(projectId: Int, postulants: List<Int>): Project? {
+        val body = mapOf("postulants" to postulants)
+        return api.updatePostulants(projectId, body)
+    }
+
+
 
 }

@@ -13,6 +13,6 @@ class CompanyRepositoryImpl(
     }
 
     override suspend fun getCompanyById(companyId: Int): Company? {
-        return api.getCompanyById(companyId)
+        return api.getCompanyById(companyId).firstOrNull()
     }
 }

@@ -24,9 +24,13 @@ import com.example.unimatchfrontend.features.companies.data.repository.CompanyRe
 import com.example.unimatchfrontend.features.projects.data.api.ProjectApi
 import com.example.unimatchfrontend.features.projects.data.repository.ProjectRepositoryImpl
 import com.example.unimatchfrontend.features.projects.domain.usecase.GetAllProjectsUseCase
-
 import com.example.unimatchfrontend.shared.network.RetrofitInstance
 import com.example.unimatchfrontend.navigation.AppNavigation
+
+// 👇 importaciones nuevas para postulación
+import com.example.unimatchfrontend.features.studentpostulations.data.api.StudentPostulationApi
+import com.example.unimatchfrontend.features.studentpostulations.data.repository.StudentPostulationRepositoryImpl
+import com.example.unimatchfrontend.features.studentpostulations.ui.StudentPostulationViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,18 +45,19 @@ class MainActivity : ComponentActivity() {
         val studentApi = retrofit.create(StudentApi::class.java)
         val companyApi = retrofit.create(CompanyApi::class.java)
         val projectApi = retrofit.create(ProjectApi::class.java)
+        val studentPostulationApi = retrofit.create(StudentPostulationApi::class.java) // ✅ nuevo
 
         // Repositories
         val userRepo = UserRepositoryImpl(userApi)
         val studentRepo = StudentRepositoryImpl(studentApi)
         val companyRepo = CompanyRepositoryImpl(companyApi)
         val projectRepo = ProjectRepositoryImpl(projectApi)
+        val studentPostulationRepo = StudentPostulationRepositoryImpl(studentPostulationApi) // ✅ nuevo
 
         // UseCases
         val loginUseCase = LoginUseCase(userRepo)
         val registerUseCase = RegisterUseCase(userRepo)
         val getAllProjectsUseCase = GetAllProjectsUseCase(projectRepo)
-
 
         // ViewModels
         val userViewModel = UserViewModel(
@@ -64,9 +69,12 @@ class MainActivity : ComponentActivity() {
 
         val studentViewModel = StudentViewModel(repository = studentRepo)
         val companyViewModel = CompanyViewModel(repository = companyRepo)
+        val projectViewModel = ProjectViewModel(
+            getAllProjectsUseCase = getAllProjectsUseCase,
+            repository = projectRepo
+        )
 
-        val projectViewModel = ProjectViewModel(getAllProjectsUseCase = getAllProjectsUseCase)
-
+        val studentPostulationViewModel = StudentPostulationViewModel(studentPostulationRepo) // ✅ nuevo
 
         // UI Content
         setContent {
@@ -79,6 +87,7 @@ class MainActivity : ComponentActivity() {
                     studentViewModel = studentViewModel,
                     companyViewModel = companyViewModel,
                     projectViewModel = projectViewModel,
+                    studentPostulationViewModel = studentPostulationViewModel, // ✅ nuevo
                     modifier = Modifier.padding(innerPadding)
                 )
             }

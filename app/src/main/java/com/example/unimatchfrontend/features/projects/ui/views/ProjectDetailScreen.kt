@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -17,6 +16,9 @@ import androidx.navigation.NavController
 import com.example.unimatchfrontend.features.companies.ui.CompanyViewModel
 import com.example.unimatchfrontend.features.projects.domain.model.Project
 import com.example.unimatchfrontend.features.projects.ui.ProjectViewModel
+import com.example.unimatchfrontend.features.studentpostulations.ui.StudentPostulationViewModel
+import com.example.unimatchfrontend.features.students.ui.StudentViewModel
+import com.example.unimatchfrontend.features.users.ui.UserViewModel
 import com.example.unimatchfrontend.navigation.Routes
 import com.example.unimatchfrontend.shared.ui.BottomNavigationBar
 import kotlinx.coroutines.launch
@@ -27,19 +29,42 @@ fun ProjectDetailScreen(
     navController: NavController,
     projectId: Int,
     projectViewModel: ProjectViewModel,
-    companyViewModel: CompanyViewModel
+    companyViewModel: CompanyViewModel,
+    studentViewModel: StudentViewModel,
+    userViewModel: UserViewModel,
+    studentPostulationViewModel: StudentPostulationViewModel
 ) {
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     var project by remember { mutableStateOf<Project?>(null) }
     var companyName by remember { mutableStateOf("Empresa desconocida") }
+    var alreadyPostulated by remember { mutableStateOf(false) }
+    var showPostulationDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(projectId) {
         project = projectViewModel.projects.value.find { it.id == projectId }
         project?.let {
-            val company = companyViewModel.getCompanyById(it.companyId)
-            companyName = company?.companyName ?: companyName
+            companyName = companyViewModel.getCompanyNameById(it.companyId)
+        }
+
+        userViewModel.currentUser?.id?.let { userId ->
+            studentViewModel.loadStudentByUserId(userId)
+        }
+    }
+
+    val student = studentViewModel.student.collectAsState().value
+
+    // Verificar si el alumno ya está postulado al proyecto
+    LaunchedEffect(student, project) {
+        if (student != null && project != null) {
+            studentPostulationViewModel.getPostulationByStudentAndProject(
+                studentId = student.id!!,
+                projectId = project!!.id
+            ) { postulation ->
+                alreadyPostulated = postulation != null
+            }
         }
     }
 
@@ -53,17 +78,17 @@ fun ProjectDetailScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFFF5F0E8), // Fondo
-                    titleContentColor = Color(0xFF1C1F2B),    // Color del título
-                    navigationIconContentColor = Color(0xFF1C1F2B) // Color del ícono
+                    containerColor = Color(0xFFF5F0E8),
+                    titleContentColor = Color(0xFF1C1F2B),
+                    navigationIconContentColor = Color(0xFF1C1F2B)
                 )
-
             )
         },
         bottomBar = {
             BottomNavigationBar(navController, Routes.OPPORTUNITIES)
         },
-        containerColor = Color(0xFFF5F0E8)
+        containerColor = Color(0xFFF5F0E8),
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { innerPadding ->
 
         project?.let {
@@ -112,7 +137,7 @@ fun ProjectDetailScreen(
                     Text("${it.budget.toInt()} dólares")
                 }
 
-                // Buttons (fuera del scroll)
+                // Botones
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -138,21 +163,63 @@ fun ProjectDetailScreen(
 
                     Button(
                         onClick = {
-                            // Aquí va la lógica de postulación
+                            if (alreadyPostulated) {
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar("Ya estás postulado a este proyecto")
+                                }
+                            } else {
+                                showPostulationDialog = true
+                            }
                         },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFFFD479),
+                            containerColor = if (alreadyPostulated) Color.Gray else Color(0xFFFFD479),
                             contentColor = Color.Black
                         ),
+                        enabled = !alreadyPostulated,
                         modifier = Modifier
                             .weight(1f)
                             .padding(start = 8.dp)
                     ) {
-                        Text("Postularme")
+                        Text(if (alreadyPostulated) "Postulado" else "Postularme")
                     }
                 }
             }
         }
     }
-}
 
+    // Popup de confirmación de postulación
+    if (showPostulationDialog && student != null && project != null) {
+        AlertDialog(
+            onDismissRequest = { showPostulationDialog = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    showPostulationDialog = false // Cierra el diálogo
+                    coroutineScope.launch {
+                        studentPostulationViewModel.postulate(
+                            studentId = student.id!!,
+                            projectId = project!!.id
+                        ) { success, message ->
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(message)
+                                if (success) {
+                                    navController.navigate(Routes.OPPORTUNITIES)
+                                }
+                            }
+                        }
+                    }
+                }) {
+                    Text("Confirmar")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    showPostulationDialog = false
+                }) {
+                    Text("Cancelar")
+                }
+            },
+            title = { Text("Confirmar Postulación") },
+            text = { Text("¿Estás seguro de que deseas postular a este proyecto?") }
+        )
+    }
+}
