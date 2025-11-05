@@ -84,7 +84,7 @@ fun AppNavigation(
         }
 
         composable(Routes.PROFILE) {
-            StudentProfileScreen(navController = navController)
+            StudentProfileScreen(navController = navController, userViewModel = userViewModel)
         }
 
         composable("${Routes.PROJECT_DETAIL}/{projectId}") { backStackEntry ->
