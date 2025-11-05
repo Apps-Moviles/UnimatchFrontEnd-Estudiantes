@@ -16,4 +16,8 @@ class UserRepositoryImpl(
     override suspend fun register(user: User): User? {
         return api.createUser(user)
     }
+
+    override suspend fun getAllUsers(): List<User> {
+        return api.getAllUsers()
+    }
 }

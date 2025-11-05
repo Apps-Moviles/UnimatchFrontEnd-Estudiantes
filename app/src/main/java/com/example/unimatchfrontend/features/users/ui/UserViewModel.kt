@@ -10,11 +10,13 @@ import com.example.unimatchfrontend.features.students.domain.model.Student
 import com.example.unimatchfrontend.features.companies.domain.model.Company
 import com.example.unimatchfrontend.features.students.domain.repository.StudentRepository
 import com.example.unimatchfrontend.features.companies.domain.repository.CompanyRepository
+import com.example.unimatchfrontend.features.users.domain.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class UserViewModel(
     private val loginUseCase: LoginUseCase,
     private val registerUseCase: RegisterUseCase,
+    private val userRepository: UserRepository,
     private val studentRepository: StudentRepository,
     private val companyRepository: CompanyRepository
 ) : ViewModel() {
@@ -76,4 +78,61 @@ class UserViewModel(
             }
         }
     }
+
+    fun registerStudentWithUser(
+        user: User,
+        birthdate: String,
+        city: String,
+        country: String,
+        career: String,
+        phoneNumber: String
+    ) {
+        isLoading = true
+        errorMessage = null
+
+        viewModelScope.launch {
+            try {
+                val allUsers = userRepository.getAllUsers()
+                val allStudents = studentRepository.getAllStudents()
+
+                val nextUserId = (allUsers.maxOfOrNull { it.id ?: 0 } ?: 0) + 1
+                val nextStudentId = (allStudents.maxOfOrNull { it.id ?: 0 } ?: 0) + 1
+
+                val cleanUser = user.copy(id = nextUserId)
+                val createdUser = registerUseCase(cleanUser)
+
+                if (createdUser != null) {
+                    currentUser = createdUser
+
+                    val newStudent = Student(
+                        id = nextStudentId,
+                        userId = createdUser.id,
+                        birthdate = birthdate,
+                        city = city,
+                        country = country,
+                        career = career,
+                        phoneNumber = phoneNumber,
+                        portfolioLink = "",
+                        aboutMe = "",
+                        rating = 0.0,
+                        profilePicture = "",
+                        endedProjects = emptyList()
+                    )
+
+                    val createdStudent = studentRepository.createStudent(newStudent)
+                    currentStudent = createdStudent
+                } else {
+                    errorMessage = "Error al crear usuario"
+                }
+            } catch (e: Exception) {
+                errorMessage = e.message ?: "Error desconocido"
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
+
+
+
 }

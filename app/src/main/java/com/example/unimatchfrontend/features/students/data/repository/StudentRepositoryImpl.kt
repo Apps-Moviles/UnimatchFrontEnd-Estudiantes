@@ -11,4 +11,12 @@ class StudentRepositoryImpl(
     override suspend fun getStudentByUserId(userId: Int): Student? {
         return api.getStudentByUserId(userId).firstOrNull()
     }
+
+    override suspend fun getAllStudents(): List<Student> {
+        return api.getAllStudents()
+    }
+
+    override suspend fun createStudent(student: Student): Student {
+        return api.createStudent(student)
+    }
 }

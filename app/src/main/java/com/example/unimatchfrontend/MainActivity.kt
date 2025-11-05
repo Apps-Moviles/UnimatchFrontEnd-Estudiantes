@@ -64,7 +64,8 @@ class MainActivity : ComponentActivity() {
             loginUseCase = loginUseCase,
             registerUseCase = registerUseCase,
             studentRepository = studentRepo,
-            companyRepository = companyRepo
+            companyRepository = companyRepo,
+            userRepository = userRepo
         )
 
         val studentViewModel = StudentViewModel(repository = studentRepo)

@@ -27,6 +27,13 @@
       "email": "juntoz@company.com",
       "password": "123456",
       "role": "company"
+    },
+    {
+      "id": 5,
+      "email": "jav@mail.com",
+      "name": "Javier",
+      "password": "1234",
+      "role": "student"
     }
   ],
   "students": [
@@ -57,6 +64,20 @@
       "rating": 4.2,
       "profilePicture": "",
       "endedProjects": []
+    },
+    {
+      "id": 3,
+      "aboutMe": "",
+      "birthdate": "2006-02-22",
+      "career": "Ingenieria de Software",
+      "city": "Lima",
+      "country": "Peru",
+      "endedProjects": [],
+      "phoneNumber": "924426821",
+      "portfolioLink": "",
+      "profilePicture": "",
+      "rating": 0,
+      "userId": 5
     }
   ],
   "companies": [
@@ -128,13 +149,6 @@
       "id": 1,
       "date": "1762297845199",
       "projectId": 1,
-      "status": "Pendiente",
-      "studentId": 1
-    },
-    {
-      "id": 2,
-      "date": "1762299140105",
-      "projectId": 2,
       "status": "Pendiente",
       "studentId": 1
     }

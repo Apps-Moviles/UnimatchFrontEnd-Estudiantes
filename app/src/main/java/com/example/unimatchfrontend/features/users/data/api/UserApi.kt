@@ -10,4 +10,7 @@ interface UserApi {
 
     @POST("users")
     suspend fun createUser(@Body user: User): User
+
+    @GET("users")
+    suspend fun getAllUsers(): List<User>
 }
