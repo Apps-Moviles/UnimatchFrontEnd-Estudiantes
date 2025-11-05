@@ -9,7 +9,12 @@ import com.example.unimatchfrontend.features.users.ui.*
 import com.example.unimatchfrontend.features.students.ui.views.*
 import com.example.unimatchfrontend.features.students.ui.StudentViewModel
 import com.example.unimatchfrontend.features.companies.ui.CompanyViewModel
+import com.example.unimatchfrontend.features.companies.ui.views.CompanyDetailScreen
 import com.example.unimatchfrontend.features.projects.ui.ProjectViewModel
+import com.example.unimatchfrontend.features.projects.ui.views.ProjectDetailScreen
+
+// ✅ Importa el nuevo ViewModel
+import com.example.unimatchfrontend.features.studentpostulations.ui.StudentPostulationViewModel
 
 @Composable
 fun AppNavigation(
@@ -18,6 +23,7 @@ fun AppNavigation(
     studentViewModel: StudentViewModel,
     companyViewModel: CompanyViewModel,
     projectViewModel: ProjectViewModel,
+    studentPostulationViewModel: StudentPostulationViewModel, // ✅ nuevo
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -74,11 +80,43 @@ fun AppNavigation(
         }
 
         composable(Routes.POSTULATIONS) {
-            PostulationsScreen(navController = navController)
+            PostulationsScreen(navController = navController,userViewModel = userViewModel,studentViewModel = studentViewModel, studentPostulationViewModel = studentPostulationViewModel )
         }
 
         composable(Routes.PROFILE) {
-            StudentProfileScreen(navController = navController)
+            StudentProfileScreen(navController = navController, userViewModel = userViewModel)
         }
+
+        composable("${Routes.PROJECT_DETAIL}/{projectId}") { backStackEntry ->
+            val projectId = backStackEntry.arguments?.getString("projectId")?.toIntOrNull() ?: return@composable
+            ProjectDetailScreen(
+                navController = navController,
+                projectId = projectId,
+                projectViewModel = projectViewModel,
+                companyViewModel = companyViewModel,
+                studentViewModel = studentViewModel,
+                userViewModel = userViewModel,
+                studentPostulationViewModel = studentPostulationViewModel
+            )
+        }
+
+        composable("${Routes.COMPANY_DETAIL}/{companyId}") { backStackEntry ->
+            val companyId = backStackEntry.arguments?.getString("companyId")?.toIntOrNull() ?: return@composable
+            CompanyDetailScreen(
+                navController = navController,
+                companyId = companyId,
+                companyViewModel = companyViewModel,
+                userViewModel = userViewModel
+            )
+        }
+
+        composable(Routes.EDIT_STUDENT_PROFILE) {
+            EditStudentProfileScreen(
+                navController = navController,
+                userViewModel = userViewModel,
+                studentViewModel = studentViewModel
+            )
+        }
+
     }
 }

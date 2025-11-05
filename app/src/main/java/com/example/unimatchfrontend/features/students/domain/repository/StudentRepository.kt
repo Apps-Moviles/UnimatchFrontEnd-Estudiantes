@@ -4,4 +4,11 @@ import com.example.unimatchfrontend.features.students.domain.model.Student
 
 interface StudentRepository {
     suspend fun getStudentByUserId(userId: Int): Student?
+
+    suspend fun getAllStudents(): List<Student>
+    suspend fun createStudent(student: Student): Student
+    suspend fun updateStudent(student: Student): Student
+
+
+
 }

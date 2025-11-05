@@ -10,4 +10,15 @@ interface UserApi {
 
     @POST("users")
     suspend fun createUser(@Body user: User): User
+
+    @GET("users")
+    suspend fun getAllUsers(): List<User>
+
+    @GET("users/{id}")
+    suspend fun getUserById(@Path("id") id: Int?): User
+
+    @PUT("users/{id}")
+    suspend fun updateUser(@Path("id") id: Int, @Body user: User): User
+
+
 }

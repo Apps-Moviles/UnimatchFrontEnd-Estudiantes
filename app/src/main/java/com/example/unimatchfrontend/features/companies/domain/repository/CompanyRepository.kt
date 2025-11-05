@@ -6,4 +6,8 @@ interface CompanyRepository {
     suspend fun getCompanyByUserId(userId: Int): Company?
 
     suspend fun getCompanyById(companyId: Int): Company?
+
+    suspend fun getAllCompanies(): List<Company>
+    suspend fun createCompany(company: Company): Company
+
 }

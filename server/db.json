@@ -1,37 +1,51 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Lucía Torres",
       "email": "lucia@student.com",
       "password": "123456",
       "role": "student"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Carlos Ríos",
       "email": "carlos@student.com",
       "password": "123456",
       "role": "student"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Empresa BioPafi",
       "email": "bio@company.com",
       "password": "123456",
       "role": "company"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Empresa Juntoz",
       "email": "juntoz@company.com",
       "password": "123456",
+      "role": "company"
+    },
+    {
+      "email": "jav@mail.com",
+      "id": "5",
+      "name": "Javier Gonzales",
+      "password": "1234",
+      "role": "student"
+    },
+    {
+      "id": "6",
+      "email": "gys@mail.com",
+      "name": "Felipe Chavez",
+      "password": "1234",
       "role": "company"
     }
   ],
   "students": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 1,
       "birthdate": "2002-08-15",
       "city": "Lima",
@@ -45,7 +59,7 @@
       "endedProjects": []
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 2,
       "birthdate": "2003-01-22",
       "city": "Cusco",
@@ -57,11 +71,25 @@
       "rating": 4.2,
       "profilePicture": "",
       "endedProjects": []
+    },
+    {
+      "aboutMe": "",
+      "birthdate": "2005-02-22",
+      "career": "Ingenieria de Software",
+      "city": "Lima",
+      "country": "Peru",
+      "endedProjects": [],
+      "id": "3",
+      "phoneNumber": "924426821",
+      "portfolioLink": "",
+      "profilePicture": "",
+      "rating": 0,
+      "userId": 5
     }
   ],
   "companies": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 3,
       "companyName": "BioPafi",
       "sector": "Salud",
@@ -73,7 +101,7 @@
       "description": "Empresa de biotecnología peruana"
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 4,
       "companyName": "Juntoz",
       "sector": "Retail",
@@ -83,11 +111,23 @@
       "rating": 4.6,
       "profilePicture": "",
       "description": "Tienda virtual peruana"
+    },
+    {
+      "id": "3",
+      "companyName": "G&S",
+      "description": "",
+      "email": "gys@mail.com",
+      "location": "Lima, Peru",
+      "phone": "999555121",
+      "profilePicture": "",
+      "rating": 0,
+      "sector": "Industria 4.0",
+      "userId": 6
     }
   ],
   "projects": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Front-End Design Hola",
       "description": "Rediseño completo de la interfaz de nuestra app móvil",
       "companyId": 1,
@@ -95,13 +135,17 @@
       "isFinished": false,
       "postulants": [],
       "field": "Diseño UI/UX",
-      "budget": 210.0,
+      "budget": 210,
       "createdAt": "2025-11-01",
-      "requirements": ["Figma", "Prototipado", "Adobe XD"],
+      "requirements": [
+        "Figma",
+        "Prototipado",
+        "Adobe XD"
+      ],
       "status": "activo"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Data Project Beta",
       "description": "Análisis de ventas de productos en campañas pasadas",
       "companyId": 2,
@@ -109,10 +153,37 @@
       "isFinished": false,
       "postulants": [],
       "field": "Data Science",
-      "budget": 120.0,
+      "budget": 120,
       "createdAt": "2025-11-01",
-      "requirements": ["Python", "Pandas", "Gráficos"],
+      "requirements": [
+        "Python",
+        "Pandas",
+        "Gráficos"
+      ],
       "status": "activo"
+    }
+  ],
+  "studentPostulations": [
+    {
+      "id": "1",
+      "date": "1762297845199",
+      "projectId": 1,
+      "status": "Pendiente",
+      "studentId": 1
+    },
+    {
+      "id": "2",
+      "date": "1762320795888",
+      "projectId": 2,
+      "status": "Pendiente",
+      "studentId": 3
+    },
+    {
+      "id": "3",
+      "date": "1762325043418",
+      "projectId": 1,
+      "status": "Pendiente",
+      "studentId": 3
     }
   ]
 }

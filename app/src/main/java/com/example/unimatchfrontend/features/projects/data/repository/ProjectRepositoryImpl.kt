@@ -15,4 +15,21 @@ class ProjectRepositoryImpl(
     override suspend fun createProject(project: Project): Project? {
         return api.createProject(project)
     }
+
+    override suspend fun updateProjectPostulants(projectId: Int, postulants: List<Int>): Project? {
+        val body = mapOf("postulants" to postulants)
+        return api.updatePostulants(projectId, body)
+    }
+
+    override suspend fun getProjectById(id: Int): Project? {
+        return try {
+            api.getProjectById(id)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+
+
 }

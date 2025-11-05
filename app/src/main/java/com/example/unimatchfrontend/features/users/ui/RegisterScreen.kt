@@ -220,8 +220,25 @@ fun RegisterScreen(
                         password = password,
                         role = role
                     )
-                    viewModel.register(user)
-                    // NOTA: luego de registrar, deberías también crear el Student o Company
+
+                    if (role == "student") {
+                        viewModel.registerStudentWithUser(
+                            user = user,
+                            birthdate = birthdate,
+                            city = city,
+                            country = country,
+                            career = career,
+                            phoneNumber = phone
+                        )
+                    }  else {
+                        viewModel.registerCompanyWithUser(
+                            user = user,
+                            companyName = companyName,
+                            sector = sector,
+                            location = location,
+                            phone = phone
+                        )
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD479)),
                 modifier = Modifier
@@ -232,6 +249,7 @@ fun RegisterScreen(
             ) {
                 Text("Register", color = Color.Black)
             }
+
 
             if (error != null) {
                 Text(error, color = Color.Red, fontSize = 14.sp, modifier = Modifier.padding(top = 8.dp))

@@ -11,9 +11,27 @@ class CompanyViewModel(
     private val repository: CompanyRepository
 ) : ViewModel() {
 
-    suspend fun getCompanyById(userId: Int): Company? {
+    private val companyNameCache = mutableMapOf<Int, String>()
+
+    suspend fun getCompanyNameById(companyId: Int): String {
+        return companyNameCache[companyId] ?: run {
+            val company = repository.getCompanyById(companyId)
+            val name = company?.companyName ?: "Empresa"
+            companyNameCache[companyId] = name
+            name
+        }
+    }
+
+    suspend fun getCompanyByUserId(userId: Int): Company? {
         return withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
             repository.getCompanyByUserId(userId)
         }
     }
+
+    suspend fun getCompanyByCompanyId(companyId: Int): Company? {
+        return withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
+            repository.getCompanyById(companyId)
+        }
+    }
+
 }
