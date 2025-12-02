@@ -41,6 +41,13 @@
       "name": "Felipe Chavez",
       "password": "1234",
       "role": "company"
+    },
+    {
+      "id": 7,
+      "email": "rob@mail.com",
+      "name": "Roberto",
+      "password": "123",
+      "role": "student"
     }
   ],
   "students": [
@@ -85,6 +92,20 @@
       "profilePicture": "",
       "rating": 0,
       "userId": 5
+    },
+    {
+      "id": 4,
+      "aboutMe": "",
+      "birthdate": "2002-08-15",
+      "career": "Audiovisuales",
+      "city": "Lima",
+      "country": "Peru",
+      "endedProjects": [],
+      "phoneNumber": "999555265",
+      "portfolioLink": "",
+      "profilePicture": "",
+      "rating": 0,
+      "userId": 7
     }
   ],
   "companies": [
@@ -127,22 +148,26 @@
   ],
   "projects": [
     {
-      "id": "1",
-      "title": "Front-End Design Hola",
-      "description": "Rediseño completo de la interfaz de nuestra app móvil",
-      "companyId": 1,
-      "studentsSelected": [],
-      "isFinished": false,
-      "postulants": [],
-      "field": "Diseño UI/UX",
       "budget": 210,
+      "companyId": 1,
       "createdAt": "2025-11-01",
+      "description": "Rediseño completo de la interfaz de nuestra app móvil",
+      "field": "Diseño UI/UX",
+      "id": "1",
+      "isFinished": false,
+      "postulants": [
+        3,
+        2,
+        4
+      ],
       "requirements": [
         "Figma",
         "Prototipado",
         "Adobe XD"
       ],
-      "status": "activo"
+      "status": "activo",
+      "studentsSelected": [],
+      "title": "Front-End Design Hola"
     },
     {
       "id": "2",
@@ -172,18 +197,25 @@
       "studentId": 1
     },
     {
-      "id": "2",
-      "date": "1762320795888",
-      "projectId": 2,
+      "id": 2,
+      "date": "1764640721294",
+      "projectId": 1,
       "status": "Pendiente",
       "studentId": 3
     },
     {
-      "id": "3",
-      "date": "1762325043418",
+      "id": 3,
+      "date": "1764640766084",
       "projectId": 1,
       "status": "Pendiente",
-      "studentId": 3
+      "studentId": 2
+    },
+    {
+      "id": 4,
+      "date": "1764641354588",
+      "projectId": 1,
+      "status": "Pendiente",
+      "studentId": 4
     }
   ]
 }

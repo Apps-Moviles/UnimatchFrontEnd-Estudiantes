@@ -11,4 +11,6 @@ interface ProjectRepository {
 
     suspend fun getProjectById(id: Int): Project?
 
+    suspend fun updateProject(project: Project): Project?
+
 }

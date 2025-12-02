@@ -30,6 +30,11 @@ class ProjectRepositoryImpl(
         }
     }
 
+    override suspend fun updateProject(project: Project): Project? {
+        return api.updateProject(project.id, project)
+    }
+
+
 
 
 }
