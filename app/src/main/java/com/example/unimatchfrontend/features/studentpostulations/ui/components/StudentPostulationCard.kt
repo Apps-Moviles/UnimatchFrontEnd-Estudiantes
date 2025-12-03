@@ -24,7 +24,7 @@ fun StudentPostulationCard(
 ) {
     val statusColor = when (status) {
         "Aceptado" -> Color(0xFF4CAF50) // Verde
-        "Rechazado" -> Color(0xFFF44336) // Rojo
+        "Rechazada" -> Color(0xFFF44336) // Rojo
         else -> Color(0xFF2196F3) // Azul
     }
 

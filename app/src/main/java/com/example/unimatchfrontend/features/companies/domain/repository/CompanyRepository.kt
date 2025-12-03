@@ -10,4 +10,7 @@ interface CompanyRepository {
     suspend fun getAllCompanies(): List<Company>
     suspend fun createCompany(company: Company): Company
 
+    suspend fun updateCompany(company: Company): Company?
+
+
 }

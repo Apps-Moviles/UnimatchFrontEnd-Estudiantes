@@ -1,9 +1,9 @@
 {
   "users": [
     {
-      "id": "1",
-      "name": "Lucía Torres",
       "email": "lucia@student.com",
+      "id": "1",
+      "name": "Lucía Torrez",
       "password": "123456",
       "role": "student"
     },
@@ -43,27 +43,29 @@
       "role": "company"
     },
     {
-      "id": 7,
-      "email": "rob@mail.com",
-      "name": "Roberto",
+      "id": "7",
+      "name": "Javier",
+      "email": "com@mail.com",
       "password": "123",
-      "role": "student"
+      "role": "company"
     }
   ],
   "students": [
     {
-      "id": "1",
-      "userId": 1,
+      "aboutMe": "",
       "birthdate": "2002-08-15",
+      "career": "Ingeniería de Software",
       "city": "Lima",
       "country": "Perú",
-      "career": "Ingeniería de Software",
+      "endedProjects": [
+        1
+      ],
+      "id": "1",
       "phoneNumber": "987654321",
       "portfolioLink": "",
-      "aboutMe": "",
-      "rating": 4.5,
-      "profilePicture": "",
-      "endedProjects": []
+      "profilePicture": "https://firebasestorage.googleapis.com/v0/b/unimatchempresas.firebasestorage.app/o/students%2Fprofile_1764734107888.jpg?alt=media&token=492b5481-5925-4856-9a95-150b1dabc09f",
+      "rating": 3,
+      "userId": 1
     },
     {
       "id": "2",
@@ -75,9 +77,11 @@
       "phoneNumber": "912345678",
       "portfolioLink": "",
       "aboutMe": "",
-      "rating": 4.2,
+      "rating": 1,
       "profilePicture": "",
-      "endedProjects": []
+      "endedProjects": [
+        1
+      ]
     },
     {
       "aboutMe": "",
@@ -92,34 +96,20 @@
       "profilePicture": "",
       "rating": 0,
       "userId": 5
-    },
-    {
-      "id": 4,
-      "aboutMe": "",
-      "birthdate": "2002-08-15",
-      "career": "Audiovisuales",
-      "city": "Lima",
-      "country": "Peru",
-      "endedProjects": [],
-      "phoneNumber": "999555265",
-      "portfolioLink": "",
-      "profilePicture": "",
-      "rating": 0,
-      "userId": 7
     }
   ],
   "companies": [
     {
-      "id": "1",
-      "userId": 3,
       "companyName": "BioPafi",
-      "sector": "Salud",
-      "location": "Lima",
+      "description": "Empresa de biotecnología peruana",
       "email": "bio@company.com",
+      "id": "1",
+      "location": "Lima",
       "phone": "999888777",
-      "rating": 4.8,
       "profilePicture": "",
-      "description": "Empresa de biotecnología peruana"
+      "rating": 2.5,
+      "sector": "Salud",
+      "userId": 3
     },
     {
       "id": "2",
@@ -129,7 +119,7 @@
       "location": "Arequipa",
       "email": "juntoz@company.com",
       "phone": "988776655",
-      "rating": 4.6,
+      "rating": 0,
       "profilePicture": "",
       "description": "Tienda virtual peruana"
     },
@@ -144,39 +134,56 @@
       "rating": 0,
       "sector": "Industria 4.0",
       "userId": 6
+    },
+    {
+      "id": "4",
+      "userId": 7,
+      "companyName": "Com Corp",
+      "sector": "comunicaciones",
+      "location": "Lima",
+      "email": "com@mail.com",
+      "phone": "999555777",
+      "rating": 0,
+      "profilePicture": "https://firebasestorage.googleapis.com/v0/b/unimatchempresas.firebasestorage.app/o/company_logos%2Fcompany_1764686571117.jpg?alt=media&token=73cff42f-1459-4538-9bf9-cfbe1daa767a",
+      "description": ""
     }
   ],
   "projects": [
     {
-      "budget": 210,
-      "companyId": 1,
-      "createdAt": "2025-11-01",
-      "description": "Rediseño completo de la interfaz de nuestra app móvil",
-      "field": "Diseño UI/UX",
       "id": "1",
+      "title": "Front-End Design Hola",
+      "description": "Rediseño completo de la interfaz de nuestra app móvil",
+      "companyId": 1,
+      "studentsSelected": [
+        1,
+        2
+      ],
       "isFinished": false,
       "postulants": [
-        3,
+        1,
         2,
-        4
+        3
       ],
+      "field": "Diseño UI/UX",
+      "budget": 210,
+      "createdAt": "2025-11-01",
       "requirements": [
         "Figma",
         "Prototipado",
         "Adobe XD"
       ],
-      "status": "activo",
-      "studentsSelected": [],
-      "title": "Front-End Design Hola"
+      "status": "finalizado"
     },
     {
       "id": "2",
       "title": "Data Project Beta",
       "description": "Análisis de ventas de productos en campañas pasadas",
-      "companyId": 2,
+      "companyId": 1,
       "studentsSelected": [],
       "isFinished": false,
-      "postulants": [],
+      "postulants": [
+        3
+      ],
       "field": "Data Science",
       "budget": 120,
       "createdAt": "2025-11-01",
@@ -185,37 +192,102 @@
         "Pandas",
         "Gráficos"
       ],
-      "status": "activo"
+      "status": "en revisión"
+    },
+    {
+      "id": "3",
+      "title": "holaxd",
+      "description": "mal pagaxd",
+      "companyId": 4,
+      "studentsSelected": [],
+      "isFinished": false,
+      "postulants": [
+        1,
+        2,
+        3
+      ],
+      "field": "Techxd",
+      "budget": 120,
+      "createdAt": "2025-12-01",
+      "requirements": [
+        "ff",
+        "dd",
+        "ddd"
+      ],
+      "status": "en revisión"
+    },
+    {
+      "id": "4",
+      "title": "ddd",
+      "description": "ddd",
+      "companyId": 4,
+      "studentsSelected": [],
+      "isFinished": false,
+      "postulants": [],
+      "field": "asdas",
+      "budget": 143,
+      "createdAt": "2025-12-01",
+      "requirements": [
+        "asa",
+        "ddd"
+      ],
+      "status": "en revisión"
     }
   ],
   "studentPostulations": [
     {
       "id": "1",
-      "date": "1762297845199",
+      "studentId": 1,
       "projectId": 1,
-      "status": "Pendiente",
-      "studentId": 1
+      "status": "Aceptado",
+      "date": "2025-12-02"
     },
     {
-      "id": 2,
-      "date": "1764640721294",
+      "id": "4",
+      "studentId": 2,
       "projectId": 1,
+      "status": "Aceptado",
+      "date": "2025-12-02"
+    },
+    {
+      "id": "2",
+      "studentId": 3,
+      "projectId": 2,
       "status": "Pendiente",
-      "studentId": 3
+      "date": "2025-12-02"
+    },
+    {
+      "id": "3",
+      "studentId": 3,
+      "projectId": 1,
+      "status": "Rechazada",
+      "date": "2025-12-02"
+    }
+  ],
+  "reputations": [
+    {
+      "id": "1",
+      "studentId": 1,
+      "projectId": 1,
+      "rating": 3,
+      "comment": "Buena trabajador",
+      "type": 1
+    },
+    {
+      "id": "2",
+      "studentId": 2,
+      "projectId": 1,
+      "rating": 1,
+      "comment": "no chambeo",
+      "type": 1
     },
     {
       "id": 3,
-      "date": "1764640766084",
+      "comment": "buena chamba",
       "projectId": 1,
-      "status": "Pendiente",
-      "studentId": 2
-    },
-    {
-      "id": 4,
-      "date": "1764641354588",
-      "projectId": 1,
-      "status": "Pendiente",
-      "studentId": 4
+      "rating": 5,
+      "studentId": 1,
+      "type": 2
     }
   ]
 }

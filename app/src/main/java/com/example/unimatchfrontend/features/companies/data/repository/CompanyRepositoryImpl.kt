@@ -23,4 +23,9 @@ class CompanyRepositoryImpl(
     override suspend fun createCompany(company: Company): Company {
         return api.createCompany(company)
     }
+
+    override suspend fun updateCompany(company: Company): Company? {
+        return api.updateCompany(company.id ?: return null, company)
+    }
+
 }

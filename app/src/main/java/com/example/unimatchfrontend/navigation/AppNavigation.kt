@@ -10,11 +10,14 @@ import com.example.unimatchfrontend.features.students.ui.views.*
 import com.example.unimatchfrontend.features.students.ui.StudentViewModel
 import com.example.unimatchfrontend.features.companies.ui.CompanyViewModel
 import com.example.unimatchfrontend.features.companies.ui.views.CompanyDetailScreen
+import com.example.unimatchfrontend.features.companies.ui.views.CompanyReviewsScreen
 import com.example.unimatchfrontend.features.projects.ui.ProjectViewModel
 import com.example.unimatchfrontend.features.projects.ui.views.ProjectDetailScreen
 
 // ✅ Importa el nuevo ViewModel
 import com.example.unimatchfrontend.features.studentpostulations.ui.StudentPostulationViewModel
+import com.example.unimatchfrontend.features.reputations.ui.ReputationViewModel
+
 
 @Composable
 fun AppNavigation(
@@ -23,7 +26,8 @@ fun AppNavigation(
     studentViewModel: StudentViewModel,
     companyViewModel: CompanyViewModel,
     projectViewModel: ProjectViewModel,
-    studentPostulationViewModel: StudentPostulationViewModel, // ✅ nuevo
+    studentPostulationViewModel: StudentPostulationViewModel,
+    reputationViewModel: ReputationViewModel,// ✅ nuevo
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -76,8 +80,17 @@ fun AppNavigation(
         }
 
         composable(Routes.PORTFOLIO) {
-            PortfolioScreen(navController = navController)
+            PortfolioScreen(
+                navController = navController,
+                userVM = userViewModel,
+                projectVM = projectViewModel,
+                companyVM = companyViewModel,         // 👈 ahora recibe el ViewModel completo
+                reputationVM = reputationViewModel    // 👈 nuevo parámetro necesario
+            )
         }
+
+
+
 
         composable(Routes.POSTULATIONS) {
             PostulationsScreen(navController = navController,userViewModel = userViewModel,studentViewModel = studentViewModel, studentPostulationViewModel = studentPostulationViewModel )
@@ -117,6 +130,20 @@ fun AppNavigation(
                 studentViewModel = studentViewModel
             )
         }
+
+        composable("${Routes.COMPANY_REVIEWS}/{companyId}") { backStackEntry ->
+            val companyIdArg = backStackEntry.arguments?.getString("companyId")?.toIntOrNull()
+                ?: return@composable
+
+            CompanyReviewsScreen(
+                navController = navController,
+                companyId = companyIdArg,
+                reputationVM = reputationViewModel,
+                projectVM = projectViewModel,
+                userVM = userViewModel
+            )
+        }
+
 
     }
 }
