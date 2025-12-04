@@ -59,16 +59,22 @@ fun OpportunitiesScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.padding(horizontal = 16.dp)
             ) {
-                projects.forEach { project ->
-                    val companyName = companyNames[project.companyId] ?: "Empresa"
-                    OpportunityCard(
-                        project = project,
-                        companyName = companyName,
-                        onClick = {
-                            navController.navigate("project_detail/${project.id}")
-                        }
-                    )
-                }
+                projects
+                    .filter {
+                        it.status.equals("en revisión", ignoreCase = true) ||
+                                it.status.equals("en revision", ignoreCase = true)
+                    }
+                    .forEach { project ->
+                        val companyName = companyNames[project.companyId] ?: "Empresa"
+                        OpportunityCard(
+                            project = project,
+                            companyName = companyName,
+                            onClick = {
+                                navController.navigate("project_detail/${project.id}")
+                            }
+                        )
+                    }
+
             }
         }
     }

@@ -48,6 +48,13 @@
       "email": "com@mail.com",
       "password": "123",
       "role": "company"
+    },
+    {
+      "id": 8,
+      "email": "12",
+      "name": "jjjj",
+      "password": "12",
+      "role": "student"
     }
   ],
   "students": [
@@ -96,6 +103,20 @@
       "profilePicture": "",
       "rating": 0,
       "userId": 5
+    },
+    {
+      "id": 4,
+      "aboutMe": "",
+      "birthdate": "12",
+      "career": "12",
+      "city": "1",
+      "country": "1",
+      "endedProjects": [],
+      "phoneNumber": "12",
+      "portfolioLink": "",
+      "profilePicture": "",
+      "rating": 0,
+      "userId": 8
     }
   ],
   "companies": [
@@ -195,26 +216,27 @@
       "status": "en revisión"
     },
     {
-      "id": "3",
-      "title": "holaxd",
-      "description": "mal pagaxd",
+      "budget": 120,
       "companyId": 4,
-      "studentsSelected": [],
+      "createdAt": "2025-12-01",
+      "description": "mal pagaxd",
+      "field": "Techxd",
+      "id": "3",
       "isFinished": false,
       "postulants": [
         1,
         2,
-        3
+        3,
+        4
       ],
-      "field": "Techxd",
-      "budget": 120,
-      "createdAt": "2025-12-01",
       "requirements": [
         "ff",
         "dd",
         "ddd"
       ],
-      "status": "en revisión"
+      "status": "en revisión",
+      "studentsSelected": [],
+      "title": "holaxd"
     },
     {
       "id": "4",
@@ -262,6 +284,13 @@
       "projectId": 1,
       "status": "Rechazada",
       "date": "2025-12-02"
+    },
+    {
+      "id": 5,
+      "date": "1764879839619",
+      "projectId": 3,
+      "status": "Pendiente",
+      "studentId": 4
     }
   ],
   "reputations": [
@@ -282,7 +311,7 @@
       "type": 1
     },
     {
-      "id": 3,
+      "id": "3",
       "comment": "buena chamba",
       "projectId": 1,
       "rating": 5,
