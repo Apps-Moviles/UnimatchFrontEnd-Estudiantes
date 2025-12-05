@@ -5,6 +5,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ProjectApi {
@@ -24,6 +25,11 @@ interface ProjectApi {
     @GET("projects/{id}")
     suspend fun getProjectById(@Path("id") id: Int): Project
 
+    @PUT("projects/{id}")
+    suspend fun updateProject(
+        @Path("id") projectId: Int,
+        @Body project: Project
+    ): Project
 
 
 }

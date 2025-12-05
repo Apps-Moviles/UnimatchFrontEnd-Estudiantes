@@ -3,7 +3,6 @@ package com.example.unimatchfrontend.features.users.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -24,7 +23,7 @@ fun RegisterScreen(
     onLoginNavigate: () -> Unit,
     viewModel: UserViewModel
 ) {
-    var role by remember { mutableStateOf("student") }
+    val role = "student" // Fijo como estudiante
 
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -37,7 +36,7 @@ fun RegisterScreen(
     var phone by remember { mutableStateOf("") }
     var career by remember { mutableStateOf("") }
 
-    // Para empresas
+    // Para empresas (ya no se usa en UI)
     var companyName by remember { mutableStateOf("") }
     var sector by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
@@ -71,31 +70,6 @@ fun RegisterScreen(
                     .padding(bottom = 12.dp)
             )
 
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                listOf("student" to "Estudiante", "company" to "Empresa").forEach { (value, label) ->
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .selectable(
-                                selected = (role == value),
-                                onClick = { role = value }
-                            )
-                            .padding(end = 16.dp)
-                    ) {
-                        RadioButton(
-                            selected = (role == value),
-                            onClick = { role = value }
-                        )
-                        Text(text = label)
-                    }
-                }
-            }
-
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
@@ -122,92 +96,52 @@ fun RegisterScreen(
                     .padding(top = 8.dp)
             )
 
-            if (role == "student") {
+            // Campos de estudiante (siempre visibles)
+            OutlinedTextField(
+                value = birthdate,
+                onValueChange = { birthdate = it },
+                label = { Text("Fecha de nacimiento") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+            )
+
+            Row(modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
-                    value = birthdate,
-                    onValueChange = { birthdate = it },
-                    label = { Text("Fecha de nacimiento") },
+                    value = city,
+                    onValueChange = { city = it },
+                    label = { Text("Ciudad") },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp)
+                        .weight(1f)
+                        .padding(end = 4.dp, top = 8.dp)
                 )
-
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    OutlinedTextField(
-                        value = city,
-                        onValueChange = { city = it },
-                        label = { Text("Ciudad") },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(end = 4.dp, top = 8.dp)
-                    )
-                    OutlinedTextField(
-                        value = country,
-                        onValueChange = { country = it },
-                        label = { Text("País") },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 4.dp, top = 8.dp)
-                    )
-                }
-
                 OutlinedTextField(
-                    value = phone,
-                    onValueChange = { phone = it },
-                    label = { Text("Número de celular") },
+                    value = country,
+                    onValueChange = { country = it },
+                    label = { Text("País") },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp)
-                )
-
-                OutlinedTextField(
-                    value = career,
-                    onValueChange = { career = it },
-                    label = { Text("Carrera") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp)
+                        .weight(1f)
+                        .padding(start = 4.dp, top = 8.dp)
                 )
             }
 
-            if (role == "company") {
-                OutlinedTextField(
-                    value = companyName,
-                    onValueChange = { companyName = it },
-                    label = { Text("Nombre de la compañía") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp)
-                )
+            OutlinedTextField(
+                value = phone,
+                onValueChange = { phone = it },
+                label = { Text("Número de celular") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+            )
 
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    OutlinedTextField(
-                        value = sector,
-                        onValueChange = { sector = it },
-                        label = { Text("Sector") },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(end = 4.dp, top = 8.dp)
-                    )
-                    OutlinedTextField(
-                        value = location,
-                        onValueChange = { location = it },
-                        label = { Text("Ubicación") },
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(start = 4.dp, top = 8.dp)
-                    )
-                }
-
-                OutlinedTextField(
-                    value = phone,
-                    onValueChange = { phone = it },
-                    label = { Text("Número de celular") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp)
-                )
-            }
+            OutlinedTextField(
+                value = career,
+                onValueChange = { career = it },
+                label = { Text("Carrera") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -221,24 +155,14 @@ fun RegisterScreen(
                         role = role
                     )
 
-                    if (role == "student") {
-                        viewModel.registerStudentWithUser(
-                            user = user,
-                            birthdate = birthdate,
-                            city = city,
-                            country = country,
-                            career = career,
-                            phoneNumber = phone
-                        )
-                    }  else {
-                        viewModel.registerCompanyWithUser(
-                            user = user,
-                            companyName = companyName,
-                            sector = sector,
-                            location = location,
-                            phone = phone
-                        )
-                    }
+                    viewModel.registerStudentWithUser(
+                        user = user,
+                        birthdate = birthdate,
+                        city = city,
+                        country = country,
+                        career = career,
+                        phoneNumber = phone
+                    )
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD479)),
                 modifier = Modifier
@@ -250,9 +174,13 @@ fun RegisterScreen(
                 Text("Register", color = Color.Black)
             }
 
-
             if (error != null) {
-                Text(error, color = Color.Red, fontSize = 14.sp, modifier = Modifier.padding(top = 8.dp))
+                Text(
+                    error,
+                    color = Color.Red,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
             }
 
             Row(

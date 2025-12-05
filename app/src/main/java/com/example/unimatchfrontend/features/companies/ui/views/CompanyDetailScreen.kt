@@ -19,6 +19,7 @@ import coil.compose.rememberImagePainter
 import com.example.unimatchfrontend.features.companies.domain.model.Company
 import com.example.unimatchfrontend.features.companies.ui.CompanyViewModel
 import com.example.unimatchfrontend.features.users.ui.UserViewModel
+import com.example.unimatchfrontend.navigation.Routes
 import com.example.unimatchfrontend.shared.ui.BottomNavigationBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -115,7 +116,9 @@ fun CompanyDetailScreen(
                 Spacer(modifier = Modifier.height(28.dp))
 
                 Button(
-                    onClick = { /* Ver Reseñas */ },
+                    onClick = {
+                        navController.navigate("${Routes.COMPANY_REVIEWS}/$companyId")
+                    },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFFD479),
                         contentColor = Color.Black
@@ -124,6 +127,8 @@ fun CompanyDetailScreen(
                 ) {
                     Text("Ver Reseñas")
                 }
+
+
             }
         } ?: Box(
             modifier = Modifier

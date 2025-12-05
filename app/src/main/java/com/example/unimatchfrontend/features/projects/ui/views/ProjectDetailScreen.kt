@@ -193,19 +193,33 @@ fun ProjectDetailScreen(
             onDismissRequest = { showPostulationDialog = false },
             confirmButton = {
                 TextButton(onClick = {
-                    showPostulationDialog = false // Cierra el diálogo
+                    showPostulationDialog = false
                     coroutineScope.launch {
                         studentPostulationViewModel.postulate(
                             studentId = student.id!!,
                             projectId = project!!.id
                         ) { success, message ->
+
                             coroutineScope.launch {
                                 snackbarHostState.showSnackbar(message)
+
                                 if (success) {
+                                    projectViewModel.postulateToProject(
+                                        project = project!!,
+                                        studentId = student.id!!
+                                    ) { updated, msg ->
+                                        coroutineScope.launch {
+                                            if (!updated) {
+                                                snackbarHostState.showSnackbar("⚠️ $msg")
+                                            }
+                                        }
+                                    }
+
                                     navController.navigate(Routes.OPPORTUNITIES)
                                 }
                             }
                         }
+
                     }
                 }) {
                     Text("Confirmar")

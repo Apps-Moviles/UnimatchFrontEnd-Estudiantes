@@ -30,32 +30,38 @@ class ProjectViewModel(
     ) {
         viewModelScope.launch {
             try {
-                val updatedPostulants = project.postulants.toMutableList()
+                val currentProject = repository.getProjectById(project.id)
 
-                if (updatedPostulants.contains(studentId)) {
-                    onResult(false, "Ya estás postulado a este proyecto.")
+                if (currentProject == null) {
+                    onResult(false, "No se encontró el proyecto.")
                     return@launch
                 }
 
-                updatedPostulants.add(studentId)
-
-                val updatedProject = repository.updateProjectPostulants(project.id, updatedPostulants)
-
-                if (updatedProject != null) {
-                    // Actualiza localmente el proyecto en el listado
-                    val current = _projects.value.toMutableList()
-                    val index = current.indexOfFirst { it.id == project.id }
-                    if (index != -1) {
-                        current[index] = updatedProject
-                        _projects.value = current
-                    }
-                    onResult(true, "¡Postulación enviada correctamente!")
-                } else {
-                    onResult(false, "Error al actualizar el proyecto.")
+                val updatedPostulants = currentProject.postulants.toMutableList()
+                if (!updatedPostulants.contains(studentId)) {
+                    updatedPostulants.add(studentId)
                 }
+
+                val updatedProject = currentProject.copy(postulants = updatedPostulants)
+
+                val saved = repository.updateProject(updatedProject)
+
+                if (saved != null) {
+                    val list = _projects.value.toMutableList()
+                    val index = list.indexOfFirst { it.id == saved.id }
+                    if (index != -1) {
+                        list[index] = saved
+                        _projects.value = list
+                    }
+                    onResult(true, "¡Actualizado correctamente!")
+                } else {
+                    onResult(false, "Error al guardar cambios.")
+                }
+
             } catch (e: Exception) {
                 onResult(false, "Error: ${e.message}")
             }
         }
     }
+
 }

@@ -187,6 +187,23 @@ class UserViewModel(
         return userRepository.getUserById(id)
     }
 
+    suspend fun getStudentNameByStudentId(studentId: Int): String {
+        return try {
+            val students = studentRepository.getAllStudents()
+            val student = students.firstOrNull { it.id == studentId }
+
+            if (student != null) {
+                val user = userRepository.getUserById(student.userId)
+                user?.name ?: "Estudiante"
+            } else {
+                "Estudiante"
+            }
+        } catch (e: Exception) {
+            "Estudiante"
+        }
+    }
+
+
     fun logout() {
         currentUser = null
         currentStudent = null

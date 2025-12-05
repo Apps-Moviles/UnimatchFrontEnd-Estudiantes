@@ -16,13 +16,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.rememberImagePainter
-import com.example.unimatchfrontend.features.students.domain.model.Student
 import com.example.unimatchfrontend.features.students.ui.StudentViewModel
-import com.example.unimatchfrontend.features.users.domain.model.User
 import com.example.unimatchfrontend.features.users.ui.UserViewModel
 import com.example.unimatchfrontend.navigation.Routes
 import kotlinx.coroutines.launch
+import com.google.firebase.storage.FirebaseStorage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,9 +42,22 @@ fun EditStudentProfileScreen(
     var phone by remember { mutableStateOf(student?.phoneNumber ?: "") }
     var profilePicture by remember { mutableStateOf(student?.profilePicture ?: "") }
 
-    // Lanzador de imagen
-    val imageLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let { profilePicture = it.toString() }
+    // estado de subida
+    var isUploading by remember { mutableStateOf(false) }
+
+    // Lanzador de imagen (galería)
+    val imageLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            isUploading = true
+            uploadStudentImageToFirebase(it) { downloadUrl ->
+                if (downloadUrl != null) {
+                    profilePicture = downloadUrl
+                }
+                isUploading = false
+            }
+        }
     }
 
     Scaffold(
@@ -74,11 +85,24 @@ fun EditStudentProfileScreen(
 
             // Botón Subir Foto
             Button(
-                onClick = { imageLauncher.launch("image/*") },
+                onClick = {
+                    if (!isUploading) {
+                        imageLauncher.launch("image/*")
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD479)),
-                shape = RoundedCornerShape(10.dp)
+                shape = RoundedCornerShape(10.dp),
+                enabled = !isUploading
             ) {
-                Text("Subir foto", color = Color.Black)
+                Text(
+                    text = if (isUploading) "Subiendo..." else "Subir foto",
+                    color = Color.Black
+                )
+            }
+
+            if (isUploading) {
+                Spacer(modifier = Modifier.height(8.dp))
+                CircularProgressIndicator()
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -119,13 +143,12 @@ fun EditStudentProfileScreen(
                                 country = country,
                                 career = career,
                                 phoneNumber = phone,
-                                profilePicture = profilePicture
+                                profilePicture = profilePicture   // URL de Firebase
                             )
                             val updatedUser = user?.copy(name = name, email = email)
-                            if (updatedStudent != null && updatedUser != null) {
+                            if (updatedStudent != null && updatedUser != null && !isUploading) {
                                 studentViewModel.updateStudent(updatedStudent)
                                 userViewModel.updateUser(updatedUser)
-
 
                                 updatedStudent.userId?.let { userId ->
                                     val refreshedStudent = studentViewModel.getStudentByUserId(userId)
@@ -136,11 +159,11 @@ fun EditStudentProfileScreen(
 
                                 navController.navigate(Routes.PROFILE)
                             }
-
                         }
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFDB813)),
-                    shape = RoundedCornerShape(10.dp)
+                    shape = RoundedCornerShape(10.dp),
+                    enabled = !isUploading
                 ) {
                     Text("Guardar cambios")
                 }
@@ -171,4 +194,28 @@ fun CustomTextField(label: String, value: String, onValueChange: (String) -> Uni
             shape = RoundedCornerShape(6.dp)
         )
     }
+}
+
+// Helper para subir imagen a Firebase Storage
+fun uploadStudentImageToFirebase(
+    uri: Uri,
+    onResult: (String?) -> Unit
+) {
+    val storageRef = FirebaseStorage.getInstance().reference
+    val fileName = "students/profile_${System.currentTimeMillis()}.jpg"
+    val fileRef = storageRef.child(fileName)
+
+    fileRef.putFile(uri)
+        .continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let { throw it }
+            }
+            fileRef.downloadUrl
+        }
+        .addOnSuccessListener { downloadUri ->
+            onResult(downloadUri.toString())
+        }
+        .addOnFailureListener {
+            onResult(null)
+        }
 }

@@ -24,6 +24,9 @@ import com.example.unimatchfrontend.features.companies.data.repository.CompanyRe
 import com.example.unimatchfrontend.features.projects.data.api.ProjectApi
 import com.example.unimatchfrontend.features.projects.data.repository.ProjectRepositoryImpl
 import com.example.unimatchfrontend.features.projects.domain.usecase.GetAllProjectsUseCase
+import com.example.unimatchfrontend.features.reputations.data.api.ReputationApi
+import com.example.unimatchfrontend.features.reputations.data.repository.ReputationRepositoryImpl
+import com.example.unimatchfrontend.features.reputations.ui.ReputationViewModel
 import com.example.unimatchfrontend.shared.network.RetrofitInstance
 import com.example.unimatchfrontend.navigation.AppNavigation
 
@@ -46,6 +49,8 @@ class MainActivity : ComponentActivity() {
         val companyApi = retrofit.create(CompanyApi::class.java)
         val projectApi = retrofit.create(ProjectApi::class.java)
         val studentPostulationApi = retrofit.create(StudentPostulationApi::class.java) // ✅ nuevo
+        val reputationApi = retrofit.create(ReputationApi::class.java)
+
 
         // Repositories
         val userRepo = UserRepositoryImpl(userApi)
@@ -53,6 +58,8 @@ class MainActivity : ComponentActivity() {
         val companyRepo = CompanyRepositoryImpl(companyApi)
         val projectRepo = ProjectRepositoryImpl(projectApi)
         val studentPostulationRepo = StudentPostulationRepositoryImpl(studentPostulationApi) // ✅ nuevo
+        val reputationRepo = ReputationRepositoryImpl(reputationApi)
+
 
         // UseCases
         val loginUseCase = LoginUseCase(userRepo)
@@ -77,6 +84,8 @@ class MainActivity : ComponentActivity() {
 
         val studentPostulationViewModel = StudentPostulationViewModel(studentPostulationRepo, projectRepo, companyRepo) // ✅ nuevo
 
+        val reputationViewModel = ReputationViewModel(reputationRepo)
+
         // UI Content
         setContent {
             val navController = rememberNavController()
@@ -88,7 +97,8 @@ class MainActivity : ComponentActivity() {
                     studentViewModel = studentViewModel,
                     companyViewModel = companyViewModel,
                     projectViewModel = projectViewModel,
-                    studentPostulationViewModel = studentPostulationViewModel, // ✅ nuevo
+                    studentPostulationViewModel = studentPostulationViewModel,
+                    reputationViewModel = reputationViewModel,// ✅ nuevo
                     modifier = Modifier.padding(innerPadding)
                 )
             }

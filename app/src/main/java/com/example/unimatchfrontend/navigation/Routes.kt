@@ -14,4 +14,6 @@ object Routes {
 
     const val EDIT_STUDENT_PROFILE = "edit_student_profile"
 
+    const val COMPANY_REVIEWS = "company_reviews"
+
 }
