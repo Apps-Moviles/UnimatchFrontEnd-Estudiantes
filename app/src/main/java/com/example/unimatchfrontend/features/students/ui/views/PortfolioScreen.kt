@@ -22,6 +22,7 @@ import com.example.unimatchfrontend.features.projects.ui.ProjectViewModel
 import com.example.unimatchfrontend.features.companies.ui.CompanyViewModel
 import com.example.unimatchfrontend.features.students.utils.PdfCertificateGenerator
 import com.example.unimatchfrontend.features.reputations.ui.ReputationViewModel
+import com.example.unimatchfrontend.features.students.ui.StudentViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -46,7 +47,8 @@ fun PortfolioScreen(
     userVM: UserViewModel,
     projectVM: ProjectViewModel,
     companyVM: CompanyViewModel,
-    reputationVM: ReputationViewModel
+    reputationVM: ReputationViewModel,
+    studentViewModel: StudentViewModel
 ) {
     val coroutine = rememberCoroutineScope()
     val context = LocalContext.current
@@ -62,29 +64,36 @@ fun PortfolioScreen(
     var rating by remember { mutableStateOf(0f) }
     var comment by remember { mutableStateOf("") }
 
-    LaunchedEffect(student) {
-        if (student != null) {
-            coroutine.launch {
-                projectVM.loadProjects()
-                val ended = student.endedProjects ?: emptyList()
-                val allProjects = projectVM.projects.value
+    LaunchedEffect(Unit) {
+        // Recargar estudiante siempre que entras a la pantalla
+        val userId = userVM.currentUser?.id
+        if (userId != null) {
+            userVM.currentStudent = studentViewModel.getStudentByUserId(userId)
+        }
 
-                val list = ended.mapNotNull { projectId ->
-                    val project = allProjects.find { it.id == projectId } ?: return@mapNotNull null
-                    val company = companyVM.companyRepository.getCompanyById(project.companyId ?: -1)
-                    val companyName = company?.companyName ?: "Empresa desconocida"
+        val refreshedStudent = userVM.currentStudent
+        if (refreshedStudent != null) {
+            projectVM.loadProjects()
 
-                    Triple(
-                        project.title ?: "Proyecto",
-                        companyName,
-                        calculateWeeksAgo(project.createdAt)
-                    )
-                }
+            val ended = refreshedStudent.endedProjects ?: emptyList()
+            val allProjects = projectVM.projects.value
 
-                portfolioItems = list
+            val list = ended.mapNotNull { projectId ->
+                val project = allProjects.find { it.id == projectId } ?: return@mapNotNull null
+                val company = companyVM.companyRepository.getCompanyById(project.companyId ?: -1)
+                val companyName = company?.companyName ?: "Empresa desconocida"
+
+                Triple(
+                    project.title ?: "Proyecto",
+                    companyName,
+                    calculateWeeksAgo(project.createdAt)
+                )
             }
+
+            portfolioItems = list
         }
     }
+
 
     Scaffold(
         bottomBar = { BottomNavigationBar(navController, currentRoute = Routes.PORTFOLIO) },

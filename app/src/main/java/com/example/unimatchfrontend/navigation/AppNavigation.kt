@@ -85,7 +85,8 @@ fun AppNavigation(
                 userVM = userViewModel,
                 projectVM = projectViewModel,
                 companyVM = companyViewModel,         // 👈 ahora recibe el ViewModel completo
-                reputationVM = reputationViewModel    // 👈 nuevo parámetro necesario
+                reputationVM = reputationViewModel,
+                studentViewModel = studentViewModel// 👈 nuevo parámetro necesario
             )
         }
 
